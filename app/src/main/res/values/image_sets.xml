@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <integer-array name="tutorial_image_set">
+        <item>@drawable/tuto1</item>
+        <item>@drawable/tuto2</item>
+        <item>@drawable/tuto3</item>
+        <item>@drawable/tuto4</item>
+        <item>@drawable/tuto5</item>
+        <item>@drawable/tuto6</item>
+        <item>@drawable/tuto7</item>
+        <item>@drawable/tuto8</item>
+        <item>@drawable/tuto9</item>
+    </integer-array>
+    
+</resources>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:id="@+id/activity_settings_coordinator_layout">
+
+
+
+    <LinearLayout
+        android:id="@+id/activity_settings_main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context="com.jldeveloper.ufremploidutemps.SettingsActivity">
+
+        <Button
+            android:text="@string/Button_title_qr_code_scan_url"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/buttonScan"
+            android:drawableStart="@drawable/ic_center_focus_weak_black_24dp"
+            android:drawableLeft="@drawable/ic_center_focus_weak_black_24dp"/>
+
+        <!--
+        <fragment
+            android:name="com.example.jeremy.ufremploidutemps.SettingsActivity$GeneralSettings"
+            android:tag="GeneralSettingsFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/GeneralSettingsFragmentId"
+            />
+
+
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:tag="UiSettingsFragment"
+            android:name="com.example.jeremy.ufremploidutemps.SettingsActivity$UISettings"/>
+
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:tag="FilterEventFragment"
+            android:name="com.example.jeremy.ufremploidutemps.SettingsActivity$FilterEventSettings"/>
+        -->
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:name="com.jldeveloper.ufremploidutemps.SettingsActivity$AllSettings"
+            android:tag="AllSettingsFragment"/>
+
+    </LinearLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>
+

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorDatePickerBackground"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+
+    <ImageButton
+        android:contentDescription="@string/left_arrow_image_contentdescription"
+        android:id="@+id/button_previous_date"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:padding="20dp"
+        android:tint="@color/colorDatePickerText"
+        android:background="#00000000"
+        android:src="@drawable/ic_keyboard_arrow_left_black_24dp" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_height="match_parent"
+        android:background="#14000000" />
+
+    <TextView
+        android:id="@+id/textview_date"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="Vendredi, 23 Décembre"
+        android:textColor="@color/colorDatePickerText"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:clickable="true" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_height="match_parent"
+        android:background="#14000000" />
+
+    <ImageButton
+        android:id="@+id/button_next_date"
+        android:contentDescription="@string/right_arrow_image_contentdescription"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:tint="@color/colorDatePickerText"
+        android:padding="20dp"
+        android:background="#00000000"
+        android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
+
+
+</LinearLayout>

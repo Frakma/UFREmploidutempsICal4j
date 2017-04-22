@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/event_layout_main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#56BF52"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/start_hour_event"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="2dp"
+        android:paddingLeft="10dp"
+        android:shadowColor="@color/text_shadow"
+        android:shadowDx="0"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:text="10:15"
+        android:textAlignment="textStart"
+        android:textColor="@android:color/background_light"
+        android:textSize="22sp"
+        android:textStyle="normal|bold"
+        android:typeface="sans" />
+
+    <TextView
+        android:id="@+id/title_event"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="3dp"
+
+        android:layout_marginTop="3dp"
+
+        android:background="#15000000"
+        android:gravity="center"
+        android:paddingBottom="16dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="16dp"
+        android:shadowColor="@color/text_shadow"
+        android:shadowDx="0"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:text="UE 3.3 Electromagnétisme TD 4"
+        android:textColor="@android:color/background_light"
+        android:textSize="22dp"
+        android:textStyle="normal|bold" />
+
+    <LinearLayout
+
+        android:id="@+id/footer_layout_cut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/end_hour_event"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="5dp"
+            android:shadowColor="@color/text_shadow"
+            android:shadowDx="0"
+            android:shadowDy="1"
+            android:shadowRadius="2"
+
+            android:text="10:15"
+            android:textAlignment="textStart"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/location_event"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingLeft="5dp"
+            android:shadowColor="@color/text_shadow"
+            android:shadowDx="0"
+            android:shadowDy="1"
+            android:shadowRadius="2"
+            android:text="Amphi E1 040 "
+            android:textAlignment="viewEnd"
+            android:textColor="#ffffff"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

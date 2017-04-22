@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_coordinator_layout"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    tools:context="com.jldeveloper.ufremploidutemps.MainActivity">
+
+    <RelativeLayout
+        android:id="@+id/main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+
+        <include
+            android:id="@+id/date_picker"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            layout="@layout/date_picker_layout" />
+
+        <!--
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:layout_below="@id/date_picker"
+            android:id="@+id/event_swiperefreshlayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        -->
+        <!--
+        <ListView
+            android:id="@+id/eventListView"
+            android:layout_below="@id/date_picker"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+            -->
+        <!--
+        </android.support.v4.widget.SwipeRefreshLayout>
+        -->
+
+        <ViewFlipper
+            android:id="@+id/eventViewFlipper"
+            android:layout_below="@id/date_picker"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ListView
+                android:id="@+id/eventListView1"
+                android:divider="@android:color/transparent"
+                android:dividerHeight="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <ListView
+                android:id="@+id/eventListView2"
+                android:divider="@android:color/transparent"
+                android:dividerHeight="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </ViewFlipper>
+
+
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>
+

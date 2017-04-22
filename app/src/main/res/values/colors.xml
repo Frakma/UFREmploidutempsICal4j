@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3CA446</color>
+    <color name="colorPrimaryDark">#1B8224</color>
+    <color name="colorAccent">#D66017</color>
+    <color name="materialLightBackground">#FAFAFA</color>
+    <color name="colorEventBackground">#E6AA50</color>
+    <color name="colorDatePickerBackground">#ECECEC</color>
+    <color name="light_font">#FBFBFB</color>
+    <color name="grey_font">#ff9e9e9e</color>
+    <color name="text_shadow">#7F000000</color>
+    <color name="text_shadow_white">#FFFFFF</color>
+    <color name="colorDatePickerText">#FF5B5B5B</color>
+    <color name="colorDatePickerArrow">#FFCECECE</color>
+
+    <color name="bright_pink">#FF007F</color>
+    <color name="red">#FF0000</color>
+    <color name="orange">#FF7F00</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="chartreuse">#7FFF00</color>
+    <color name="green">#00FF00</color>
+    <color name="spring_green">#00FF7F</color>
+    <color name="cyan">#00FFFF</color>
+    <color name="azure">#007FFF</color>
+    <color name="blue">#0000FF</color>
+    <color name="violet">#7F00FF</color>
+    <color name="magenta">#FF00FF</color>
+
+    <array name="rainbow">
+        <item>@color/bright_pink</item>
+        <item>@color/red</item>
+        <item>@color/orange</item>
+        <item>@color/yellow</item>
+        <item>@color/chartreuse</item>
+        <item>@color/green</item>
+        <item>@color/spring_green</item>
+        <item>@color/cyan</item>
+        <item>@color/azure</item>
+        <item>@color/blue</item>
+        <item>@color/violet</item>
+        <item>@color/magenta</item>
+    </array>
+
+    <color name="light_blue">#55B6E0</color>
+    <color name="light_green">#08C258</color>
+    <color name="light_red">#F04646</color>
+    <color name="orange_salmon">#F28E41</color>
+    <color name="pink">#F264BE</color>
+    <color name = "light_cyan" > #56BFD1 </color>
+    <color name = "light_yellow" > #D9C647 </color>
+    <color name = "dark_blue" >  #686EBA </color>
+    <color name = "dark_green" > #30A630  </color>
+    <color name = "pink_2" >#E6357C</color>
+
+    <array name="event_colors">
+        <item>@color/light_blue</item>
+        <item>@color/light_green</item>
+        <item>@color/orange_salmon</item>
+        <item>@color/pink</item>
+        <item>@color/light_red</item>
+        <item>@color/light_cyan</item>
+        <item>@color/light_yellow</item>
+        <item>@color/dark_blue</item>
+        <item>@color/dark_green</item>
+        <item>@color/pink_2</item>
+    </array>
+
+</resources>

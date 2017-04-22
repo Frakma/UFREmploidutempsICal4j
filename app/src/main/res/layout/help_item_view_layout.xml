@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/help_item_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:textAlignment="center"
+        android:layout_alignParentBottom="true"
+        android:gravity="bottom"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:text="Cursor textview"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:id="@+id/help_cursor_textview" />
+
+
+    <ImageView
+        android:layout_above="@id/help_cursor_textview"
+        android:contentDescription="tutorial image"
+        android:id="@+id/help_imageview"
+        android:foregroundGravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@color/azure"/>
+
+
+
+
+</RelativeLayout>

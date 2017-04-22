@@ -1,0 +1,46 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="EventTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:layout_width">match_parent</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBarOverlay">false</item>
+        <item name="windowActionBar">false</item>
+        <!--<item name="android:windowBackground">@null</item>-->
+        <item name="android:windowMinWidthMajor">100%</item>
+        <item name="android:windowMinWidthMinor">100%</item>
+        <item name="windowFixedWidthMinor">100%</item>
+        <item name="windowFixedWidthMajor">100%</item>
+        <item name="android:windowAnimationStyle">@style/EventDialogAnimation</item>
+
+    </style>
+
+    <style name="EventDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/fade_in_scale_up</item>
+        <item name="android:windowExitAnimation">@anim/fade_out_scale_down</item>
+    </style>
+
+    <style name="DialogStyle" parent="Base.Theme.AppCompat.Light.Dialog"></style>
+
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="android:windowBackground">@drawable/splash_drawable</item>
+
+    </style>
+
+
+
+
+</resources>

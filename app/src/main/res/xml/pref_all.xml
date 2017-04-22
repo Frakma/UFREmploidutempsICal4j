@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <PreferenceCategory
+        android:title="@string/pref_header_sync"
+        android:key="pref_sync_settings">
+
+        <EditTextPreference
+            android:icon="@drawable/ic_sync_black_24dp"
+            android:capitalize="words"
+            android:defaultValue=""
+            android:inputType="text"
+            android:key="sync_url"
+            android:maxLines="1"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="@string/pref_sync_url" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/pref_header_ui"
+        android:key="pref_ui_settings">
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:title="@string/pref_use_personnalized_event_color"
+            android:key="pref_personnalized_event_color"/>
+
+        <com.thebluealliance.spectrum.SpectrumPreference
+            android:dependency="pref_personnalized_event_color"
+            app:spectrum_colors="@array/event_colors"
+
+            app:defaultValue="@color/orange_salmon"
+            android:defaultValue="@color/orange_salmon"
+            android:title="@string/pref_events_color"
+            android:key="pref_events_color"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/Filter_events"
+        android:key="pref_filter_event_settings"
+        >
+
+        <!--
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:title="@string/Filter_events"
+            android:key="event_filtering" />
+        -->
+        <SwitchPreference
+            android:defaultValue="true"
+            android:title="@string/Enable_events_filtering"
+            android:key="event_filtering" />
+
+        <Preference
+            android:title="@string/configure_hidden_events">
+            <intent
+                android:targetPackage="com.jldeveloper.ufremploidutemps"
+                android:targetClass="com.jldeveloper.ufremploidutemps.SettingsFilterEventsActivity"
+                />
+        </Preference>
+
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/Help"
+        android:key="pref_help_settings">
+        <Preference
+            android:title="@string/about_app">
+            <intent
+                android:targetPackage="com.jldeveloper.ufremploidutemps"
+                android:targetClass="com.jldeveloper.ufremploidutemps.AboutActivity"
+                />
+        </Preference>
+        <Preference
+            android:title="@string/how_to_use">
+            <intent
+                android:targetPackage="com.jldeveloper.ufremploidutemps"
+                android:targetClass="com.jldeveloper.ufremploidutemps.HelpActivity"
+                />
+        </Preference>
+
+    </PreferenceCategory>
+
+
+</PreferenceScreen>
