@@ -44,6 +44,7 @@
     <string name="Help">Help</string>
     <string name="localization_prefix">en</string>
     <string name="how_to_use">How to use</string>
+    <string name="loading">Loading...</string>
 
 
 </resources>

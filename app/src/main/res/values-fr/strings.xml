@@ -45,4 +45,5 @@
     <string name="Help">Aide</string>
     <string name="localization_prefix">fr</string>
     <string name="how_to_use">Tutoriel</string>
+    <string name="loading">Chargement...</string>
 </resources>

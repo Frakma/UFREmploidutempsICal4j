@@ -7,8 +7,6 @@ configurations {
 
 android {
     signingConfigs {
-        config {
-        }
     }
     compileSdkVersion 25
     buildToolsVersion '25.0.2'
@@ -28,18 +26,16 @@ android {
         versionName '1.2.2'
         //testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         resConfigs "en", "fr"
-        signingConfig signingConfigs.config
+
     }
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.config
         }
         debug {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.config
         }
     }
     productFlavors {

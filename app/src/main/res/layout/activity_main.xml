@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_coordinator_layout"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     tools:context="com.jldeveloper.ufremploidutemps.MainActivity">
+
+
 
     <RelativeLayout
         android:id="@+id/main_layout"
@@ -41,31 +44,62 @@
         </android.support.v4.widget.SwipeRefreshLayout>
         -->
 
-        <ViewFlipper
-            android:id="@+id/eventViewFlipper"
+        <FrameLayout
             android:layout_below="@id/date_picker"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ListView
-                android:id="@+id/eventListView1"
-                android:divider="@android:color/transparent"
-                android:dividerHeight="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
 
-            <ListView
-                android:id="@+id/eventListView2"
-                android:divider="@android:color/transparent"
-                android:dividerHeight="5dp"
+            <ViewFlipper
+                android:id="@+id/eventViewFlipper"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent">
 
-        </ViewFlipper>
+                <ListView
+                    android:id="@+id/eventListView1"
+                    android:divider="@android:color/transparent"
+                    android:dividerHeight="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <ListView
+                    android:id="@+id/eventListView2"
+                    android:divider="@android:color/transparent"
+                    android:dividerHeight="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </ViewFlipper>
+
+            <ProgressBar
+                android:id="@+id/loadingProgressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_marginBottom="-6dp"
+                android:layout_marginTop="-7dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:layout_gravity="top"
+                android:visibility="gone"
+                />
+
+        </FrameLayout>
+
 
 
 
     </RelativeLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/return_today_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:fabSize="normal"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:tint="@color/white"
+        app:srcCompat="@drawable/ic_undo_black_24dp" />
 
 </android.support.design.widget.CoordinatorLayout>
 

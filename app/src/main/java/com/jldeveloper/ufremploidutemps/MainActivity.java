@@ -12,7 +12,10 @@ import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,6 +34,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
@@ -65,6 +69,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Locale;
@@ -73,7 +78,7 @@ import java.util.TreeSet;
 
 import static java.lang.Math.min;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<net.fortuna.ical4j.model.Calendar> {
 
 
 
@@ -93,9 +98,12 @@ public class MainActivity extends AppCompatActivity {
     public static final String KEY_VCALENDAR_OBJECT="vcalendar_courant";
     public static final String EXTRA_EVENT_DETAIL_COLORBG="background_color_event";
     public static final String EXTRA_EVENT_DETAIL_VEVENT="Objet_VEvent_detail";
+    public static final int ICS_LOADER_ID=0;
 
     public static final int TIMEOUT_CONNECT_DELAY=10*1000; //Delai de connexion passé a 15 secondes
     public static final int TIMEOUT_READ_DELAY=10*1000;
+
+
 
 
     /**
@@ -129,6 +137,8 @@ public class MainActivity extends AppCompatActivity {
     TextView textViewDate;
     ImageView refresh;
     ViewFlipper viewFlipper;
+    FloatingActionButton goTodayFab;
+    ProgressBar loadingProgressBar;
 
     CoordinatorLayout coordinatorLayout;
 
@@ -149,6 +159,8 @@ public class MainActivity extends AppCompatActivity {
     float MAX_SWIPE_OFF_PATH;
     float SWIPE_THRESHOLD;
 
+    File savedIcs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -160,17 +172,59 @@ public class MainActivity extends AppCompatActivity {
         //Initialize the refresh button animation
         rotation= AnimationUtils.loadAnimation(this, R.anim.rotate);
 
+        scaleInFab=AnimationUtils.loadAnimation(this,R.anim.fade_in_scale_up);
+        scaleInFab.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                goTodayFab.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        scaleOutFab=AnimationUtils.loadAnimation(this,R.anim.fade_out_scale_down);
+        scaleOutFab.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                goTodayFab.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
         //Initialize coordinatorLayout for snackbar displaying
         coordinatorLayout=(CoordinatorLayout) findViewById(R.id.main_coordinator_layout);
 
         //Load if it exists the saved ics file from private files directory
-        File savedIcs=new File(this.getFilesDir().getPath() +"/"+"ADECal.ics");
+        savedIcs=new File(this.getFilesDir().getPath() +"/"+"ADECal.ics");
 
         //Initialize the date picker with 2 buttons and 1 textview
         datePicker2=findViewById(R.id.date_picker);
 
         //Initialize the viewFlipper which does the animation job
         viewFlipper=(ViewFlipper)findViewById(R.id.eventViewFlipper);
+
+        //FAB to go to Today's date
+        goTodayFab=(FloatingActionButton) findViewById(R.id.return_today_fab);
+
+        //ProgressBar to show the loading of the ICS file
+        loadingProgressBar=(ProgressBar) findViewById(R.id.loadingProgressBar);
 
         //Initialize viewflippers's child Listviews
         //Add the itemclicklistener to show events details
@@ -220,6 +274,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        goTodayFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calendarSelected.set(calendarNow.get(Calendar.YEAR),calendarNow.get(Calendar.MONTH),calendarNow.get(Calendar.DAY_OF_MONTH));
+                updateViewsFromCalendar(calendarSelected,true);
+            }
+        });
 
         mDetectorCompat=new GestureDetectorCompat(this, new GestureDetector.SimpleOnGestureListener() {
 
@@ -261,24 +322,69 @@ public class MainActivity extends AppCompatActivity {
             calendarSelected.set(savedDate[0],savedDate[1],savedDate[2]);
 
             //ics file has already been parsed so just reuse it
-            vcalendar=(net.fortuna.ical4j.model.Calendar) savedInstanceState.getSerializable(KEY_VCALENDAR_OBJECT);
+            //vcalendar=(net.fortuna.ical4j.model.Calendar) savedInstanceState.getSerializable(KEY_VCALENDAR_OBJECT);
+            //instantiateVCalendar(false);
         }else {
-            try {
-                //else, load the saved ics file
-                FileInputStream in = new FileInputStream(savedIcs);
-                CalendarBuilder builder = new CalendarBuilder();
-                vcalendar = builder.build(in);
-
-                snackBarMaker(R.string.success_loaded_timetable_from_file, Snackbar.LENGTH_SHORT);
-
-            } catch (IOException | ParserException e) {
-                e.printStackTrace();
-            }
+            //instantiateVCalendar(true);
         }
 
 
-        updateViewsFromCalendar(calendarSelected,true);
+        //updateViewsFromCalendar(calendarSelected,true);
 
+        Loader icalLoader=getSupportLoaderManager().getLoader(ICS_LOADER_ID);
+        if(icalLoader!=null){
+            ((ICalAsyncTaskLoader) icalLoader ).setHandler(loadingIcsHandler);
+        }
+        getSupportLoaderManager().initLoader(ICS_LOADER_ID,null,this);
+
+    }
+
+
+    @Override
+    public Loader<net.fortuna.ical4j.model.Calendar> onCreateLoader(int id, Bundle args) {
+        ICalAsyncTaskLoader loader=new ICalAsyncTaskLoader(MainActivity.this);
+        loader.setHandler(loadingIcsHandler);
+        return loader;
+
+    }
+
+    @Override
+    public void onLoadFinished(Loader<net.fortuna.ical4j.model.Calendar> loader, net.fortuna.ical4j.model.Calendar data) {
+
+        //System.out.println("J'ai recu le calendrier");
+        vcalendar=data;
+        updateViewsFromCalendar(calendarSelected,true);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<net.fortuna.ical4j.model.Calendar> loader) {
+
+    }
+
+    private void instantiateVCalendar(boolean displayLoadedHint){
+        try {
+            //else, load the saved ics file
+            vcalendar=loadCalendarFromIn(savedIcs);
+
+            if(displayLoadedHint)
+                snackBarMaker(R.string.success_loaded_timetable_from_file, Snackbar.LENGTH_SHORT);
+
+        } catch (IOException | ParserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private net.fortuna.ical4j.model.Calendar loadCalendarFromIn(InputStream in) throws IOException,ParserException{
+        CalendarBuilder builder = new CalendarBuilder();
+        return builder.build(in);
+    }
+
+    private net.fortuna.ical4j.model.Calendar loadCalendarFromIn(File filein) throws IOException,ParserException{
+
+        FileInputStream in=new FileInputStream(filein);
+        net.fortuna.ical4j.model.Calendar c=loadCalendarFromIn(in);
+        in.close();
+        return c;
     }
 
     private void determineFlingThreshold(){
@@ -315,9 +421,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    Animation scaleInFab;
+
+    Animation scaleOutFab;
+
     public void updateViewsFromCalendar(Calendar calendar,boolean updateCurrentListView){
 
         updateDateTextView(calendar);
+
+        if((calendarSelected.get(Calendar.DAY_OF_MONTH) == calendarNow.get(Calendar.DAY_OF_MONTH)) && (calendarSelected.get(Calendar.MONTH)==calendarNow.get(Calendar.MONTH)) && (calendarNow.get(Calendar.YEAR)==calendarSelected.get(Calendar.YEAR)) ){
+            goTodayFab.startAnimation(scaleOutFab);
+        }
+        else{
+
+            if(goTodayFab.getVisibility() != View.VISIBLE){
+                goTodayFab.startAnimation(scaleInFab);
+            }
+
+        }
 
 
         if(updateCurrentListView){
@@ -325,7 +446,27 @@ public class MainActivity extends AppCompatActivity {
             ArrayList<net.fortuna.ical4j.model.component.VEvent> evArray= getVEventArrayFromCalendar(vcalendar,calendarSelected);
 
 
-            updateListAdapterWithEvents(evArray,(ListView)viewFlipper.getCurrentView());
+            //Animate the transition between the 2 listviews.
+            //update the one which is not visible
+            //Out the displayed one
+            //In the hidden one
+
+            viewFlipper.setInAnimation(this,R.anim.slide_in_up);
+            viewFlipper.setOutAnimation(this,R.anim.fade_out_scale_down);
+
+            int toOutView=viewFlipper.getDisplayedChild();;
+            int toInView= toOutView==0 ? 1:0;
+
+
+            updateListAdapterWithEvents(evArray,(ListView)viewFlipper.getChildAt(toInView));
+
+            if(toOutView==0){
+                viewFlipper.showNext();
+            }
+            else{
+                viewFlipper.showPrevious();
+            }
+
         }
 
     }
@@ -459,10 +600,11 @@ public class MainActivity extends AppCompatActivity {
 
         Collection eventsToday = filter.filter(calendar.getComponents(Component.VEVENT));
 
-        TreeSet<net.fortuna.ical4j.model.component.VEvent> set=new TreeSet<>(eventComparatorFromStartDate);
-        set.addAll(eventsToday);
+        ArrayList<net.fortuna.ical4j.model.component.VEvent> lst=new ArrayList<>(eventsToday);
 
-        return new ArrayList<net.fortuna.ical4j.model.component.VEvent>(set);
+        Collections.sort(lst,eventComparatorFromStartDate);
+
+        return lst;
     }
 
 
@@ -518,7 +660,28 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    final Handler loadingIcsHandler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case ICalAsyncTaskLoader.START_LOADING:
+                    System.out.println("Start load");
+                    textViewDate.setText(R.string.loading);
+                    loadingProgressBar.setVisibility(View.VISIBLE);
+                    break;
+                case ICalAsyncTaskLoader.RETURN_SAVED_INSTANCE:
+                    System.out.println("Returned saved instance");
+                    break;
+                case ICalAsyncTaskLoader.DELIVER_RESULT:
+                    System.out.println("Success loading");
+                    updateDateTextView(calendarSelected);
+                    loadingProgressBar.setVisibility(View.GONE);
 
+                    break;
+                default:
+            }
+        }
+    };
 
     //Handles message from the Download Thread and does action in the UI thread like updating views
     final Handler myHandler=new Handler(){
@@ -528,7 +691,10 @@ public class MainActivity extends AppCompatActivity {
 
             switch (result){
                 case SUCCESS_CALENDAR_URL_PARSING:{
-                    updateViewsFromCalendar(calendarSelected,true);
+                    //updateViewsFromCalendar(calendarSelected,true);
+                    //Relancer le chargement du calendrier depuis le ICS
+                    getSupportLoaderManager().getLoader(ICS_LOADER_ID).onContentChanged();
+
                     snackBarMaker(R.string.successfully_updated,Snackbar.LENGTH_SHORT);
                     stopRefreshAnimation();
                     isUpdating=false;
@@ -646,7 +812,9 @@ public class MainActivity extends AppCompatActivity {
 
                 try {
                     URL u=new URL(savedUrl);
-                    vcalendar=createCalendarFromURL(u);
+                    //vcalendar=createCalendarFromURL(u);
+                    downloadICStoFile(u);
+
 
                     Message msgSuccess=new Message();
                     msgSuccess.arg1=SUCCESS_CALENDAR_URL_PARSING;
@@ -674,14 +842,15 @@ public class MainActivity extends AppCompatActivity {
                     myHandler.sendMessage(msg);
                     e.printStackTrace();
 
-                } catch (ParserException e) {
+                } /*catch (ParserException e) {
 
                     Message msg=new Message();
                     msg.arg1= FAILED_CALENDAR_PARSING;
                     myHandler.sendMessage(msg);
                     e.printStackTrace();
 
-                } catch(UnknownHostException e){
+                }*/
+                catch(UnknownHostException e){
 
                     Message msg=new Message();
                     msg.arg1= FAILED_URL_RESOLUTION;
@@ -753,7 +922,7 @@ public class MainActivity extends AppCompatActivity {
         outState.putIntArray(KEY_CALENDAR_DATE,currentdate);
 
 
-        outState.putSerializable(KEY_VCALENDAR_OBJECT,vcalendar);
+        //outState.putSerializable(KEY_VCALENDAR_OBJECT,vcalendar);
         super.onSaveInstanceState(outState);
     }
 

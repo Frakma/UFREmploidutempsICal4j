@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#3CA446</color>
     <color name="colorPrimaryDark">#1B8224</color>
-    <color name="colorAccent">#D66017</color>
+    <color name="colorAccent">#E65100</color>
     <color name="materialLightBackground">#FAFAFA</color>
     <color name="colorEventBackground">#E6AA50</color>
     <color name="colorDatePickerBackground">#ECECEC</color>
