@@ -46,4 +46,7 @@
     <string name="localization_prefix">fr</string>
     <string name="how_to_use">Tutoriel</string>
     <string name="loading">Chargement...</string>
+    <string name="show_fab">Afficher le bouton \"Retour à aujourd\'hui\"</string>
+    <string name="set_fab_alpha">Régler l\'opacité du bouton</string>
+    <string name="set_fab_alpha_hint">Configurer l\'opacité du bouton de \"Retour à aujourd\'hui\" entre 0 (transparent) et 100 (opaque)</string>
 </resources>

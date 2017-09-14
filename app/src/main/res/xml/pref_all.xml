@@ -38,6 +38,23 @@
             android:title="@string/pref_events_color"
             android:key="pref_events_color"/>
 
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:title="@string/show_fab"
+            android:key="pref_enable_gototoday_fab"/>
+
+        <com.jldeveloper.ufremploidutemps.SeekBarPreference
+            android:defaultValue="100"
+            android:dialogTitle="Opacité"
+            android:title="@string/set_fab_alpha"
+            app:defaultValue="100"
+            android:text="%"
+            android:key="pref_fab_alpha"
+            android:dependency="pref_enable_gototoday_fab"
+            />
+
+
+
     </PreferenceCategory>
 
     <PreferenceCategory

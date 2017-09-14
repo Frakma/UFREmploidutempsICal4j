@@ -99,7 +99,8 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:tint="@color/white"
-        app:srcCompat="@drawable/ic_undo_black_24dp" />
+        app:srcCompat="@drawable/ic_undo_black_24dp"
+        android:visibility="gone"/>
 
 </android.support.design.widget.CoordinatorLayout>
 
