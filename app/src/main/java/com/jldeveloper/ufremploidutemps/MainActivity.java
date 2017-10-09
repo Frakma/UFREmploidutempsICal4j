@@ -1,7 +1,6 @@
 package com.jldeveloper.ufremploidutemps;
 
 
-import android.animation.Animator;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -25,7 +24,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
@@ -76,7 +74,6 @@ import java.util.Locale;
 import java.util.Scanner;
 import java.util.TreeSet;
 
-import static java.lang.Math.min;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<net.fortuna.ical4j.model.Calendar> {
 
