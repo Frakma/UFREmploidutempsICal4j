@@ -297,11 +297,18 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             int[] savedDate = savedInstanceState.getIntArray(KEY_CALENDAR_DATE);
             calendarSelected.set(savedDate[0], savedDate[1], savedDate[2]);
 
-            //ics file has already been parsed so just reuse it
-            //vcalendar=(net.fortuna.ical4j.model.Calendar) savedInstanceState.getSerializable(KEY_VCALENDAR_OBJECT);
-            //instantiateVCalendar(false);
-        } else {
-            //instantiateVCalendar(true);
+        }
+
+        //We have just started the app for the first time
+        else {
+
+            if(syncsOnStart()){
+                if (!isUpdating) {
+                    syncCal(getSyncURLFromPreferences());
+                } else {
+                    snackBarMaker(R.string.already_updating, Snackbar.LENGTH_SHORT);
+                }
+            }
         }
 
 
@@ -312,10 +319,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         //updateViewsFromCalendar(calendarSelected,true);
 
+
         Loader icalLoader = getSupportLoaderManager().getLoader(ICS_LOADER_ID);
+        //The loader already exists
         if (icalLoader != null) {
+            //Set the handler of the this activity
             ((ICalAsyncTaskLoader) icalLoader).setHandler(loadingIcsHandler);
         }
+
+
         getSupportLoaderManager().initLoader(ICS_LOADER_ID, null, this);
 
     }
@@ -323,6 +335,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public Loader<net.fortuna.ical4j.model.Calendar> onCreateLoader(int id, Bundle args) {
+
+
         ICalAsyncTaskLoader loader = new ICalAsyncTaskLoader(MainActivity.this);
         loader.setHandler(loadingIcsHandler);
         return loader;
@@ -1043,5 +1057,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         return sharedPreferences.getBoolean(PreferenceKeys.SHOW_FAB, true);
+    }
+
+    private boolean syncsOnStart(){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        return sharedPreferences.getBoolean(PreferenceKeys.SYNC_ON_START, false);
     }
 }

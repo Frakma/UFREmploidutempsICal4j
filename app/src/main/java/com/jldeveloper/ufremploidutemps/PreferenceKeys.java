@@ -13,5 +13,7 @@ public class PreferenceKeys {
     public static final String EVENTS_CUSTOM_COLOR_BOOLEAN="pref_personnalized_event_color";
     public static final String SHOW_FAB="pref_enable_gototoday_fab";
     public static final String FAB_ALPHA="pref_fab_alpha";
+    public static final String SYNC_ON_START="sync_on_start";
+    public static final String SCAN_QR_CODE_PREF="scan_qr_code";
 
 }

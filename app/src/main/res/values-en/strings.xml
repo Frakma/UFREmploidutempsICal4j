@@ -23,7 +23,7 @@
     <string name="pref_events_color">Events background color</string>
     <string name="pref_header_sync">Sync</string>
     <string name="pref_header_ui">Aspect</string>
-    <string name="pref_sync_url">Time schedule sync URL</string>
+    <string name="pref_sync_url">Sync URL</string>
     <string name="pref_use_personnalized_event_color">Custom events background color</string>
     <string name="qr_code_scan_prompt">Scan your time schedule QR code URL by holding your phone in landscape mode</string>
     <string name="right_arrow_image_contentdescription">Right arrow</string>
@@ -49,4 +49,9 @@
     <string name="show_fab">Show the \"Go to Today\" button</string>
     <string name="set_fab_alpha">Configure the alpha value</string>
     <string name="set_fab_alpha_hint">Configure the transparency of the \"go to today\" button from 0 (transparent) to 100 (opaque)</string>
+    <string name="sync_on_start">Sync on app start</string>
+    <string name="pref_sync_url_summary">Enter or view your schedule URL manually</string>
+    <string name="pref_scan_qr_code_summary">Scan the QR code corresponding to your schedule URL</string>
+    <string name="pref_sync_on_start_summary">Update your schedule on app start</string>
+    <string name="pref_event_filtering_summary">Manage the hidden events.</string>
 </resources>

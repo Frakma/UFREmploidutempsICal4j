@@ -13,6 +13,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -50,19 +51,19 @@ public class SettingsActivity extends AppCompatActivity {
 
 
 
-        Button btn=(Button) findViewById(R.id.buttonScan);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if(!hasCameraPermission){
-                    requestCameraPermission();
-                }else{
-                    scanQr();
-                }
-
-            }
-        });
+//        Button btn=(Button) findViewById(R.id.buttonScan);
+//        btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                if(!hasCameraPermission){
+//                    requestCameraPermission();
+//                }else{
+//                    scanQr();
+//                }
+//
+//            }
+//        });
 
 
 
@@ -111,6 +112,23 @@ public class SettingsActivity extends AppCompatActivity {
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_all);
+
+            Preference scanQrPref=(Preference) findPreference(PreferenceKeys.SCAN_QR_CODE_PREF);
+
+            scanQrPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+
+
+                    if(! ((SettingsActivity) getActivity()).hasCameraPermission){
+                        ((SettingsActivity) getActivity()).requestCameraPermission();
+                    }else{
+                        ((SettingsActivity) getActivity()).scanQr();
+                    }
+
+                    return true;
+                }
+            });
         }
 
     }

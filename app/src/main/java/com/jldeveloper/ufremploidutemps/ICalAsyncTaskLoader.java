@@ -41,7 +41,6 @@ public class ICalAsyncTaskLoader extends android.support.v4.content.AsyncTaskLoa
 
         if (vCalendar != null) {
 
-
             deliverResult(vCalendar);
         }
 

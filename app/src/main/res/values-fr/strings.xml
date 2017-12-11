@@ -9,7 +9,7 @@
     <string name="pref_events_color">Couleur de fond des événements</string>
     <string name="pref_header_sync">Synchronisation</string>
     <string name="pref_header_ui">Apparence</string>
-    <string name="pref_sync_url">URL de synchronisation de l\'emploi du temps</string>
+    <string name="pref_sync_url">URL de synchronisation</string>
     <string name="pref_use_personnalized_event_color">Couleur personnalisée des événements</string>
     <string name="qr_code_scan_prompt">Scannez le QR code de votre emploi du temps en tenant votre appareil en mode paysage</string>
     <string name="success_loaded_timetable_from_file">L\'emploi du temps sauvegardé est chargé.</string>
@@ -49,4 +49,9 @@
     <string name="show_fab">Afficher le bouton \"Retour à aujourd\'hui\"</string>
     <string name="set_fab_alpha">Régler l\'opacité du bouton</string>
     <string name="set_fab_alpha_hint">Configurer l\'opacité du bouton de \"Retour à aujourd\'hui\" entre 0 (transparent) et 100 (opaque)</string>
+    <string name="sync_on_start">Synchro. au lancement.</string>
+    <string name="pref_sync_url_summary">Entrez ou visualisez manuellement l\'URL de votre EDT</string>
+    <string name="pref_scan_qr_code_summary">Scanner le QR code de votre emploi du temps</string>
+    <string name="pref_sync_on_start_summary">Mettre à jour l\'EDT au démarragede l\'app.</string>
+    <string name="pref_event_filtering_summary">Gérer les évènements cachés.</string>
 </resources>

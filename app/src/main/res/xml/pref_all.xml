@@ -7,6 +7,12 @@
         android:title="@string/pref_header_sync"
         android:key="pref_sync_settings">
 
+        <Preference
+            android:key="scan_qr_code"
+            android:icon="@drawable/ic_center_focus_weak_black_24dp"
+            android:summary="@string/pref_scan_qr_code_summary"
+            android:title="@string/Button_title_qr_code_scan_url"
+            />
         <EditTextPreference
             android:icon="@drawable/ic_sync_black_24dp"
             android:capitalize="words"
@@ -16,7 +22,17 @@
             android:maxLines="1"
             android:selectAllOnFocus="true"
             android:singleLine="true"
+            android:summary="@string/pref_sync_url_summary"
             android:title="@string/pref_sync_url" />
+
+        <SwitchPreference
+            android:icon="@drawable/ic_autorenew_black_24dp"
+            android:capitalize="words"
+            android:defaultValue="false"
+            android:key="sync_on_start"
+            android:summary="@string/pref_sync_on_start_summary"
+            android:title="@string/sync_on_start" />
+
 
     </PreferenceCategory>
 
@@ -47,6 +63,7 @@
             android:defaultValue="100"
             android:dialogTitle="Opacité"
             android:title="@string/set_fab_alpha"
+            app:dialogMessage="@string/set_fab_alpha_hint"
             app:defaultValue="100"
             android:text="%"
             android:key="pref_fab_alpha"
@@ -74,6 +91,7 @@
             android:key="event_filtering" />
 
         <Preference
+            android:summary="@string/pref_event_filtering_summary"
             android:title="@string/configure_hidden_events">
             <intent
                 android:targetPackage="com.jldeveloper.ufremploidutemps"
