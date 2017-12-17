@@ -40,6 +40,9 @@
 
     </style>
 
+    <style name="SettingsTheme" parent="AppTheme">
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+    </style>
 
 
 

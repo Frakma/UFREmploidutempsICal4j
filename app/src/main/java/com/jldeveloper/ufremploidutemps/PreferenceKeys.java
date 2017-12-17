@@ -15,5 +15,7 @@ public class PreferenceKeys {
     public static final String FAB_ALPHA="pref_fab_alpha";
     public static final String SYNC_ON_START="sync_on_start";
     public static final String SCAN_QR_CODE_PREF="scan_qr_code";
+    public static final String SYNC_ON_START_DELAY_PREF="sync_on_start_delay";
+    public static final String LAST_SYNC_TIME_SECONDS="last_sync_time";
 
 }

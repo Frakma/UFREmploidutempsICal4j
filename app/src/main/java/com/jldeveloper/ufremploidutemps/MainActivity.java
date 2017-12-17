@@ -303,11 +303,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         else {
 
             if(syncsOnStart()){
-                if (!isUpdating) {
-                    syncCal(getSyncURLFromPreferences());
-                } else {
-                    snackBarMaker(R.string.already_updating, Snackbar.LENGTH_SHORT);
+
+                if(needsSyncing()){
+                    if (!isUpdating) {
+                        syncCal(getSyncURLFromPreferences());
+                    } else {
+                        snackBarMaker(R.string.already_updating, Snackbar.LENGTH_SHORT);
+                    }
                 }
+
             }
         }
 
@@ -717,6 +721,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                     //Relancer le chargement du calendrier depuis le ICS
                     getSupportLoaderManager().getLoader(ICS_LOADER_ID).onContentChanged();
 
+                    updateSyncTime();
                     snackBarMaker(R.string.successfully_updated, Snackbar.LENGTH_SHORT);
                     stopRefreshAnimation();
                     isUpdating = false;
@@ -1063,5 +1068,25 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         return sharedPreferences.getBoolean(PreferenceKeys.SYNC_ON_START, false);
+    }
+
+    private boolean needsSyncing(){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        long lastTime=sharedPreferences.getLong(PreferenceKeys.LAST_SYNC_TIME_SECONDS,0);
+        long currentTime=System.currentTimeMillis()/1000; //retrieve the current time in s
+
+        String time=sharedPreferences.getString(PreferenceKeys.SYNC_ON_START_DELAY_PREF,"0:10:0");
+        String[] hms=time.split(":");
+
+        long delay=Integer.parseInt(hms[0])*3600+Integer.parseInt(hms[1])*60+Integer.parseInt(hms[2]);
+
+        return (currentTime-lastTime) >= delay;
+    }
+    private void updateSyncTime(){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        long currentTime=System.currentTimeMillis()/1000; //retrieve the current time in s
+        SharedPreferences.Editor editor=sharedPreferences.edit();
+        editor.putLong(PreferenceKeys.LAST_SYNC_TIME_SECONDS,currentTime);
+        editor.apply();
     }
 }

@@ -54,4 +54,6 @@
     <string name="pref_scan_qr_code_summary">Scan the QR code corresponding to your schedule URL</string>
     <string name="pref_sync_on_start_summary">Update your schedule on app start</string>
     <string name="pref_event_filtering_summary">Manage the hidden events.</string>
+    <string name="pref_sync_on_start_delay">Sync on start delay</string>
+    <string name="pref_sync_on_start_delay_summary">Sync on start delay</string>
 </resources>

@@ -33,7 +33,12 @@
             android:summary="@string/pref_sync_on_start_summary"
             android:title="@string/sync_on_start" />
 
-
+        <Preference
+            android:dependency="sync_on_start"
+            android:key="sync_on_start_delay"
+            android:icon="@drawable/ic_timer_black_24dp"
+            android:summary="@string/pref_sync_on_start_delay_summary"
+            android:title="@string/pref_sync_on_start_delay"/>
     </PreferenceCategory>
 
     <PreferenceCategory

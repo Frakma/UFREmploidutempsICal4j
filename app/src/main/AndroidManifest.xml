@@ -16,7 +16,7 @@
             android:theme="@style/AppTheme"></activity>
         <activity
             android:name=".SettingsActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/SettingsTheme" />
         <activity
             android:name=".EventDetailsActivity"
             android:theme="@style/EventTheme" />
