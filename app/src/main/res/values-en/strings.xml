@@ -55,5 +55,5 @@
     <string name="pref_sync_on_start_summary">Update your schedule on app start</string>
     <string name="pref_event_filtering_summary">Manage the hidden events.</string>
     <string name="pref_sync_on_start_delay">Sync on start delay</string>
-    <string name="pref_sync_on_start_delay_summary">Sync on start delay</string>
+    <string name="pref_sync_on_start_delay_summary">Set the delay after the last sync to trigger sync on app start.</string>
 </resources>
