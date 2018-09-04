@@ -959,6 +959,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         switch (requestCode) {
             case REQUEST_SETTINGS:
 
+                boolean needResync=false;
+                if(resultCode==RESULT_OK && data !=null)
+                {
+                    needResync=data.getBooleanExtra(PreferenceKeys.INTENT_SETTINGS_NEEDS_RESYNG,false);
+                }
                 showFAB=showsTodayFab();
                 //Si on veut affiche le FAB apres le passage aux parametre, alors on maj le alpha
                 if(showFAB){
@@ -966,6 +971,16 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 }
 
                 updateViewsFromCalendar(calendarSelected, true, NO_ANIMATION);
+
+                if(needResync)
+                {
+                    if (!isUpdating) {
+                        syncCal(getSyncURLFromPreferences());
+                    } else {
+                        snackBarMaker(R.string.already_updating, Snackbar.LENGTH_SHORT);
+                    }
+                }
+
 
                 break;
             case REQUEST_EVENT_DETAIL_ACTIVITY:

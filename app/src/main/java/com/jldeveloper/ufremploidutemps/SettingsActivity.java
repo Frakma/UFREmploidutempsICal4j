@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
@@ -31,12 +32,14 @@ public class SettingsActivity extends AppCompatActivity {
     static final int PERMISSIONS_REQUEST_CAMERA = 8793;
 
     boolean hasCameraPermission = false;
+
     CoordinatorLayout coordinatorLayout;
 
     HmsPickerBuilder syncOnStartDelayPicker;
     HmsPickerDialogFragment.HmsPickerDialogHandlerV2 handlerDelayPicker;
 
     SharedPreferences sharedPreferences;
+    Intent resultIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,9 @@ public class SettingsActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_settings);
 
+        resultIntent=new Intent();
+
+        setResult(RESULT_OK,resultIntent);
 
         sharedPreferences=PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -120,7 +126,8 @@ public class SettingsActivity extends AppCompatActivity {
 
         IntentIntegrator integrator = new IntentIntegrator(this);
         integrator.setBeepEnabled(false);
-        integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
+        //integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES );
+        integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
         integrator.setPrompt(getResources().getString(R.string.qr_code_scan_prompt));
         integrator.initiateScan();
     }
@@ -152,6 +159,16 @@ public class SettingsActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_all);
 
+            EditTextPreference urlPref=(EditTextPreference) findPreference(PreferenceKeys.SYNC_URL_STRING);
+
+            urlPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object o) {
+
+                    ((SettingsActivity)getActivity()).resultIntent.putExtra(PreferenceKeys.INTENT_SETTINGS_NEEDS_RESYNG,true);
+                    return true;
+                }
+            });
 
             Preference scanQrPref = (Preference) findPreference(PreferenceKeys.SCAN_QR_CODE_PREF);
 
@@ -198,7 +215,8 @@ public class SettingsActivity extends AppCompatActivity {
                 editor.putString(PreferenceKeys.SYNC_URL_STRING, intentResult.getContents());
                 editor.apply();
                 snackBarMaker(R.string.success_qr_code_url_saving, Snackbar.LENGTH_LONG);
-
+                //Now should reload time schedule with new URL
+                resultIntent.putExtra(PreferenceKeys.INTENT_SETTINGS_NEEDS_RESYNG,true);
 
             } else {
                 snackBarMaker(R.string.failed_qr_code_url_saving, Snackbar.LENGTH_LONG);
@@ -239,5 +257,16 @@ public class SettingsActivity extends AppCompatActivity {
 
     void toastMaker(String s, int duration) {
         Toast.makeText(this, s, duration).show();
+    }
+
+    public String getSyncURLFromPreferences() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        return sharedPreferences.getString(PreferenceKeys.SYNC_URL_STRING, "");
+    }
+
+    @Override
+    protected void onDestroy() {
+
+        super.onDestroy();
     }
 }
