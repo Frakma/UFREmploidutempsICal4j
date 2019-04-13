@@ -14,8 +14,8 @@ configurations {
 android {
     signingConfigs {
     }
-    compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    compileSdkVersion 27
+    //buildToolsVersion '27.0.0'
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/NOTICE.txt'
@@ -27,7 +27,7 @@ android {
     defaultConfig {
         applicationId 'com.jldeveloper.ufremploidutemps'
         minSdkVersion 15
-        targetSdkVersion 28
+        targetSdkVersion 27
         versionCode 8
         versionName '1.4.1'
         //testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -49,7 +49,8 @@ android {
 }
 
 dependencies {
-    def googleSupportLibsVersion = '28.0.0'
+    def googleSupportLibsVersion = '27.1.1'
+
     api fileTree(include: ['*.jar'], dir: 'libs')
     api 'com.android.support:appcompat-v7:' + googleSupportLibsVersion
     api 'com.android.support:support-v4:' + googleSupportLibsVersion

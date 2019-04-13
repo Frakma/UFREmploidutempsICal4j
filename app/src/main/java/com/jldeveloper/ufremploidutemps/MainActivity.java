@@ -431,15 +431,22 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
 
 
-    @SuppressLint("RestrictedApi") // also suppressed the warning
+
     public void updateGoToTodayFab() {
 
         //On ne montre pas le FAB, donc on passe
         if(!showFAB){
+
+            /*if(goTodayFab.isOrWillBeShown())
+            {
+                goTodayFab.hide();
+            }*/
+
             if(goTodayFab.getVisibility() != View.GONE){
                 goTodayFab.setVisibility(View.GONE);
                 //goTodayFab.hide(); //Suppresses errors of library group
             }
+
             return;
         }
 
@@ -448,6 +455,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             goTodayFab.setVisibility(View.GONE);
             //goTodayFab.hide();
         } else {
+
+            /*
+            if(goTodayFab.isOrWillBeHidden())
+            {
+
+                goTodayFab.show();
+            }*/
 
             if (goTodayFab.getVisibility() != View.VISIBLE) {
                 goTodayFab.startAnimation(scaleInFab);
