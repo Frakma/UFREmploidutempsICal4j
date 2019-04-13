@@ -362,6 +362,17 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public void onLoadFinished(Loader<net.fortuna.ical4j.model.Calendar> loader, net.fortuna.ical4j.model.Calendar data) {
 
         vcalendar = data;
+        if(vcalendar == null)
+        {
+            Snackbar s=Snackbar.make(coordinatorLayout,R.string.failed_timetable_io_reading,Snackbar.LENGTH_LONG).setAction(R.string.modify_url, new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    menuItemOpenSettings();
+                }
+            });
+            s.show();
+
+        }
         updateViewsFromCalendar(calendarSelected, true, NO_ANIMATION);
     }
 
