@@ -5,7 +5,7 @@
     <string name="failed_update">Échec de la mise à jour.</string>
     <string name="forbidden_camera_permission_hint">Permission d\'utiliser la caméra refusée.</string>
     <string name="no_events">Aucun événement</string>
-    <string name="no_loaded_events">Aucun événement chargé</string>
+    <string name="no_loaded_events">Aucun emploi du temps chargé</string>
     <string name="pref_events_color">Couleur de fond des événements</string>
     <string name="pref_header_sync">Synchronisation</string>
     <string name="pref_header_ui">Apparence</string>
@@ -56,4 +56,6 @@
     <string name="pref_event_filtering_summary">Gérer les évènements cachés.</string>
     <string name="pref_sync_on_start_delay">Délai entre deux synchronisation</string>
     <string name="pref_sync_on_start_delay_summary">Configurer la durée écoulée depuis la dernière synchro pour forcer la synchro au démarrage.</string>
+    <string name="error_no_timeschedule_to_load">Aucun EDT disponible</string>
+    <string name="modify_url">Modifier l\'URL</string>
 </resources>

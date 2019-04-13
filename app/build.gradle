@@ -28,8 +28,8 @@ android {
         applicationId 'com.jldeveloper.ufremploidutemps'
         minSdkVersion 15
         targetSdkVersion 27
-        versionCode 8
-        versionName '1.4.1'
+        versionCode 9
+        versionName '1.4.2'
         //testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         resConfigs "en", "fr"
 
@@ -50,7 +50,6 @@ android {
 
 dependencies {
     def googleSupportLibsVersion = '27.1.1'
-
     api fileTree(include: ['*.jar'], dir: 'libs')
     api 'com.android.support:appcompat-v7:' + googleSupportLibsVersion
     api 'com.android.support:support-v4:' + googleSupportLibsVersion

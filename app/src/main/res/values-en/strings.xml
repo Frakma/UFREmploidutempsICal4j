@@ -19,7 +19,7 @@
     <string name="left_arrow_image_contentdescription">Left arrow</string>
     <string name="modifications_saved">Changes saved.</string>
     <string name="no_events">No events</string>
-    <string name="no_loaded_events">No loaded events</string>
+    <string name="no_loaded_events">No valid timeschedule</string>
     <string name="pref_events_color">Events background color</string>
     <string name="pref_header_sync">Sync</string>
     <string name="pref_header_ui">Aspect</string>
@@ -56,4 +56,6 @@
     <string name="pref_event_filtering_summary">Manage the hidden events.</string>
     <string name="pref_sync_on_start_delay">Sync on start delay</string>
     <string name="pref_sync_on_start_delay_summary">Set the delay after the last sync to trigger sync on app start.</string>
+    <string name="error_no_timeschedule_to_load">No timeschedule available</string>
+    <string name="modify_url">Modify URL</string>
 </resources>
