@@ -1,6 +1,7 @@
 package com.jldeveloper.ufremploidutemps;
 
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -18,6 +19,7 @@ import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -58,6 +60,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
@@ -74,9 +79,15 @@ import java.util.Locale;
 import java.util.Scanner;
 import java.util.TreeSet;
 
+import okhttp3.Call;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<net.fortuna.ical4j.model.Calendar> {
 
+    public static final String TAG ="MainActivity";
 
     public static final int REQUEST_SETTINGS = 100;
     public static final int REQUEST_EVENT_DETAIL_ACTIVITY = 200;
@@ -420,13 +431,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
 
 
-
+    @SuppressLint("RestrictedApi") // also suppressed the warning
     public void updateGoToTodayFab() {
 
         //On ne montre pas le FAB, donc on passe
         if(!showFAB){
             if(goTodayFab.getVisibility() != View.GONE){
                 goTodayFab.setVisibility(View.GONE);
+                //goTodayFab.hide(); //Suppresses errors of library group
             }
             return;
         }
@@ -434,11 +446,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         if ((calendarSelected.get(Calendar.DAY_OF_MONTH) == calendarNow.get(Calendar.DAY_OF_MONTH)) && (calendarSelected.get(Calendar.MONTH) == calendarNow.get(Calendar.MONTH)) && (calendarNow.get(Calendar.YEAR) == calendarSelected.get(Calendar.YEAR))) {
             goTodayFab.startAnimation(scaleOutFab);
             goTodayFab.setVisibility(View.GONE);
+            //goTodayFab.hide();
         } else {
 
             if (goTodayFab.getVisibility() != View.VISIBLE) {
                 goTodayFab.startAnimation(scaleInFab);
                 goTodayFab.setVisibility(View.VISIBLE);
+                //goTodayFab.show();
             }
 
         }
@@ -628,7 +642,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         return lst;
     }
 
-
+/* NOT USED
     private net.fortuna.ical4j.model.Calendar createCalendarFromURL(URL url) throws IOException, ParserException, SocketTimeoutException {
         FileInputStream in = new FileInputStream(downloadICStoFile(url));
         CalendarBuilder builder = new CalendarBuilder();
@@ -642,7 +656,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     }
 
+*/
 
+//DEPRECATED, Replaced by downloadICStoFileOKHTTP, less buggy
     /**
      * Telecharge le contenu des octets accessible par l'url @u dans le fichier ADECal.ics
      * dans le dossier privé de l'application.
@@ -679,6 +695,33 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
 
         return f;
+
+    }
+
+    private void downloadICStoFileOKHTTP(URL u) throws IOException {
+
+        File f = new File(this.getFilesDir().getPath() + "/" + "ADECal.ics");
+        OkHttpClient client = new OkHttpClient();
+
+        Request request = new Request.Builder()
+                .url(u)
+                .build();
+
+        Response res = client.newCall(request).execute();
+
+
+        if (res.isSuccessful()) {
+
+            String icsFile = res.body().string();
+
+            if (icsFile == null) {
+                throw new IOException("ICS String downloaded is null");
+            }
+
+            PrintStream out = new PrintStream(f);
+            out.println(icsFile);
+            out.close();
+        }
 
     }
 
@@ -841,7 +884,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 try {
                     URL u = new URL(savedUrl);
                     //vcalendar=createCalendarFromURL(u);
-                    downloadICStoFile(u);
+                    downloadICStoFileOKHTTP(u);
 
 
                     Message msgSuccess = new Message();
