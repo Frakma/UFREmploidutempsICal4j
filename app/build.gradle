@@ -1,20 +1,9 @@
 apply plugin: 'com.android.application'
 
-//Force because okhttp 3.13 force java8 and stetho-no-op
-configurations.all {
-    resolutionStrategy
-            {
-                force 'com.squareup.okhttp3:okhttp:3.12.1'
-            }
-}
-configurations {
-    compile.exclude group: 'commons-logging' // referenced in some portable lib. use android internal instead
-}
-
 android {
     signingConfigs {
     }
-    compileSdkVersion 27
+    compileSdkVersion 29
     //buildToolsVersion '27.0.0'
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'
@@ -27,9 +16,9 @@ android {
     defaultConfig {
         applicationId 'com.jldeveloper.ufremploidutemps'
         minSdkVersion 15
-        targetSdkVersion 27
-        versionCode 9
-        versionName '1.4.2'
+        targetSdkVersion 29
+        versionCode 10
+        versionName '1.5'
         //testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         resConfigs "en", "fr"
 
@@ -49,23 +38,22 @@ android {
 }
 
 dependencies {
-    def googleSupportLibsVersion = '27.1.1'
     api fileTree(include: ['*.jar'], dir: 'libs')
-    api 'com.android.support:appcompat-v7:' + googleSupportLibsVersion
-    api 'com.android.support:support-v4:' + googleSupportLibsVersion
-    api 'com.android.support:preference-v7:' + googleSupportLibsVersion
-    api 'com.android.support:support-annotations:' + googleSupportLibsVersion
-    api 'com.android.support:design:' + googleSupportLibsVersion
+    api 'androidx.appcompat:appcompat:1.1.0'
+    api 'androidx.legacy:legacy-support-v4:1.0.0'
+    api 'androidx.preference:preference:1.1.0'
+    api 'androidx.annotation:annotation:1.1.0'
+    api 'com.google.android.material:material:1.0.0'
     api 'com.journeyapps:zxing-android-embedded:3.6.0'
     api 'com.google.zxing:core:3.3.2'
     api 'com.thebluealliance:spectrum:0.7.1'
     api 'org.mnode.ical4j:ical4j:1.0.7'
     api 'backport-util-concurrent:backport-util-concurrent:3.1'
-    api 'commons-codec:commons-codec:1.9'
+    api 'commons-codec:commons-codec:1.10'
     api 'commons-lang:commons-lang:2.6'
     api 'com.code-troopers.betterpickers:library:3.1.0'
     api 'com.github.bumptech.glide:glide:3.7.0'
-    api 'com.squareup.okhttp3:okhttp:3.12.1'
+    api 'com.squareup.okhttp3:okhttp:4.3.0'
     //testCompile 'junit:junit:4.12'
     //compile 'com.android.support:support-vector-drawable:24.2.1'
     //androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {

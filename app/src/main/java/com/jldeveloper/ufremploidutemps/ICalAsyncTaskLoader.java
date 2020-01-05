@@ -1,6 +1,5 @@
 package com.jldeveloper.ufremploidutemps;
 
-import android.content.AsyncTaskLoader;
 import android.content.Context;
 import android.os.FileObserver;
 import android.os.Handler;
@@ -14,11 +13,13 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import androidx.loader.content.AsyncTaskLoader;
+
 /**
  * Created by Jeremy on 12/09/2017.
  */
 
-public class ICalAsyncTaskLoader extends android.support.v4.content.AsyncTaskLoader<Calendar> {
+public class ICalAsyncTaskLoader extends AsyncTaskLoader<Calendar> {
 
     private Handler observerHandler;
 
